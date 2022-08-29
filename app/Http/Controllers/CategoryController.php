@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Auth\GuardHelpers;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -36,7 +38,13 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $category = new Category();
+        $category->title = $request->title;
+        $category->slug = Str::slug($request->title);
+        $category->user_id = Auth()->id();
+        $category->save();
+
+        return $category;
     }
 
     /**
