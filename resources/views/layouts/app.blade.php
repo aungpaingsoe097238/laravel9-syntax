@@ -18,6 +18,7 @@
 </head>
 <body>
     <div id="app">
+
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -73,8 +74,29 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+
+            @auth()
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="list-group">
+                            <a href="{{ route('home') }}" class="list-group-item list-group-item-action">Home</a>
+                            <a href="{{ route('test') }}" class="list-group-item list-group-item-action">Test Page</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-8">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
+            @endauth
+
+            @guest()
+                 @yield('content')
+            @endguest
+
         </main>
+
     </div>
 </body>
 </html>
