@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('excerpt');
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('featured_image')->nullable();
             $table->timestamps();
         });
     }
