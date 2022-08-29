@@ -73,16 +73,13 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-3">
 
             @auth()
             <div class="container">
-                <div class="row">
+                <div class="row g-3">
                     <div class="col-12 col-lg-4">
-                        <div class="list-group">
-                            <a href="{{ route('home') }}" class="list-group-item list-group-item-action">Home</a>
-                            <a href="{{ route('test') }}" class="list-group-item list-group-item-action">Test Page</a>
-                        </div>
+                        @include('layouts.sidebar')
                     </div>
                     <div class="col-12 col-lg-8">
                         @yield('content')

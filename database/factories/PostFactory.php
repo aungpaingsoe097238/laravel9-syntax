@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 ;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\post>
  */
 class PostFactory extends Factory
 {
