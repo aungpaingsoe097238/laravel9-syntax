@@ -48,6 +48,9 @@
                                         {{ \App\Models\User::find($post->user_id)->name }}
                                     </td>
                                     <td>
+
+                                        <a href="{{ route('post.show',$post->id) }}" class="btn btn-secondary btn-sm">Info</a>
+
                                         <a href="{{ route('post.edit',$post->id) }}" class="btn btn-secondary btn-sm">Edit</a>
 
                                         <form action="{{ route('post.destroy',$post->id) }}" class="d-inline-block" method="post">
