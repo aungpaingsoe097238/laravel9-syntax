@@ -67,13 +67,17 @@
 
                                         <a href="{{ route('post.show',$post->id) }}" class="btn btn-secondary btn-sm">Info</a>
 
+                                        @can('update',$post)
                                         <a href="{{ route('post.edit',$post->id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                                        @endcan
 
+                                        @can('delete',$post)
                                         <form action="{{ route('post.destroy',$post->id) }}" class="d-inline-block" method="post">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
                                         </form>
+                                        @endcan
 
                                     </td>
                                     <td>

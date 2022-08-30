@@ -100,9 +100,14 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        if(Gate::denies('update-post',$post)){
-            return abort(403,"Not Allow");
+//        if(Gate::denies('update-post',$post)){
+//            return abort(403,"Not Allow");
+//        }
+
+        if(Gate::denies('update',$post)){
+            return abort(403);
         }
+
 
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
@@ -134,6 +139,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+
+        if(Gate::denies('delete',$post)){
+            return abort(403);
+        }
+
         if(isset($post->featured_image)){
             Storage::delete('public/'.$post->featured_image);
         }
