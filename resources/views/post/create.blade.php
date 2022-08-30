@@ -51,10 +51,19 @@
                     <div class="col-12">
                         <div>
                             <label for="featured_image">Featured Image</label>
-                            <input type="file" class="form-control" name="featured_image">
+                            <input
+                                type="file"
+                                class="form-control  @error('featured_image') is-invalid @enderror"
+                                value="{{ old('featured_image') }}"
+                                name="featured_image"
+                                id="featured_image"
+                                accept="image/jpeg,image/png">
+                            @error('featured_image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <button class="btn btn-primary mt-2">Add Category</button>
+                        <button class="btn btn-primary mt-2">Add Post</button>
                     </div>
 
                 </div>

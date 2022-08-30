@@ -36,7 +36,11 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-
+        if($request->hasFile('featured_image')){
+            $newName = uniqid().'_featured_image.'.$request->file('featured_image')->extension();
+            $request->file('featured_image')->storeAs('public',$newName);
+        }
+        return $request;
     }
 
     /**
