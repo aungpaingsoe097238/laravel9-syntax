@@ -15,6 +15,8 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    @stack('style')
 </head>
 <body>
     <div id="app">
@@ -95,5 +97,9 @@
         </main>
 
     </div>
+
+
+    @stack('script')
+
 </body>
 </html>

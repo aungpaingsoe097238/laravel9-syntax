@@ -17,7 +17,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.index');
+
+        $categories = Category::latest()->get();
+
+        return view('category.index',compact('categories'));
     }
 
     /**
@@ -44,7 +47,7 @@ class CategoryController extends Controller
         $category->user_id = Auth()->id();
         $category->save();
 
-        return $category;
+        return redirect()->route('category.index')->with('status',$category.' is Created Successfully!.');
     }
 
     /**
@@ -55,7 +58,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -66,7 +69,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('category.edit');
+        return view('category.edit',compact('category'));
     }
 
     /**
@@ -78,7 +81,12 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->title = $request->title;
+        $category->slug  = Str::slug($request->title);
+        $category->user_id = Auth()->id();
+        $category->update();
+
+        return redirect()->route('category.index');
     }
 
     /**
@@ -89,6 +97,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('category.index');
     }
 }

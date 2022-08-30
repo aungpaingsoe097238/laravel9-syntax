@@ -13,8 +13,6 @@
         <div class="card-body">
             <form action="{{ route('category.store') }}" method="post">
                 @csrf
-                <h4>Create New Category</h4>
-                <hr>
                 <div class="row">
                     <div class="col">
                         <input type="text"  name="title" class="form-control @error('title') is-invalid @enderror">
@@ -30,4 +28,12 @@
         </div>
     </div>
 
+    @push('script')
+        <script>
+            console.log(showToast());
+        </script>
+    @endpush
+
 @endsection
+
+
