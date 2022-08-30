@@ -18,7 +18,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(5);
+        $posts = Post::when(isset(request()->keyword),function ($query) {
+            $keyword = request()->keyword;
+            $query->where('title', "LIKE", "%$keyword%")
+                ->orWhere('description', "LIKE", "%$keyword%");
+        })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
+
         return view('post.index',compact('posts'));
     }
 

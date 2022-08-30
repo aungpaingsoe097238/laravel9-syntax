@@ -12,6 +12,22 @@
     <div class="card">
         <div class="card-body">
 
+            <div class="d-flex justify-content-between mb-2">
+                <div>
+                    @if(request('keyword'))
+                        Search - {{ request('keyword') }}
+                    @endif
+                </div>
+
+                <form action="{{ route('post.index') }}" method="get">
+                    <div class="input-group">
+                        <input type="search" class="form-control" name="keyword">
+                        <button class="btn btn-outline-secondary">Search</button>
+                    </div>
+                </form>
+
+            </div>
+
             <div class="container">
                 <div class="row">
                     <div class="col">
