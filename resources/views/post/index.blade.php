@@ -25,6 +25,9 @@
                                     Category
                                 </th>
                                 <th>
+                                    Owner
+                                </th>
+                                <th>
                                     Controls
                                 </th>
                                 <th>
@@ -35,14 +38,14 @@
                             <tbody>
                             @forelse($posts as $post)
                                 <tr>
-                                    <td>
-                                        {{ $post->title }} <br>
-                                        <span class="badge bg-secondary">
-                                                {{ $post->slug }}
-                                        </span>
+                                    <td class="w-25">
+                                        {{ $post->title }}
                                     </td>
                                     <td>
-                                        {{ $post->category_id }}
+                                        {{ \App\Models\Category::find($post->category_id)->title }}
+                                    </td>
+                                    <td>
+                                        {{ \App\Models\User::find($post->user_id)->name }}
                                     </td>
                                     <td>
                                         <a href="{{ route('post.edit',$post->id) }}" class="btn btn-secondary btn-sm">Edit</a>
