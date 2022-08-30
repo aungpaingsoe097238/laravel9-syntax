@@ -111,7 +111,6 @@ class PostController extends Controller
 
         return redirect()->route('post.index');
 
-        return $request;
     }
 
     /**
@@ -122,6 +121,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        if(isset($post->featured_image)){
+            Storage::delete('public/'.$post->featured_image);
+        }
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 }
