@@ -22,8 +22,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/test',[HomeController::class,'test'])->name('test');
+Route::get('/home', [HomeController::class, 'index'])->middleware('testing')->name('home');
+Route::get('/test',[HomeController::class,'test'])->middleware('testing')->name('test');
 
 Route::resource('category',CategoryController::class)->except('show');
 Route::resource('post',PostController::class);
