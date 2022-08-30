@@ -10,7 +10,70 @@
     </nav>
 
     <div class="card">
-        <div class="card-body"></div>
+        <div class="card-body">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Controls
+                                </th>
+                                <th>
+                                    Date
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($posts as $post)
+                                <tr>
+                                    <td>
+                                        {{ $post->title }} <br>
+                                        <span class="badge bg-secondary">
+                                                {{ $post->slug }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {{ $post->category_id }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('post.edit',$post->id) }}" class="btn btn-secondary btn-sm">Edit</a>
+
+                                        <form action="{{ route('post.destroy',$post->id) }}" class="d-inline-block" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                                        </form>
+
+                                    </td>
+                                    <td>
+                                        {{ $post->created_at->format('d M Y') }}
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">
+                                        There is no posts!
+                                    </td>
+                                </tr>
+                            @endforelse
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        {{ $posts->onEachSide(1)->links() }}
     </div>
 
 @endsection

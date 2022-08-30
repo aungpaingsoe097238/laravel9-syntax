@@ -34,6 +34,7 @@
                                     <tr>
                                         <td>
                                             {{ $category->title }}
+                                            <br>
                                             <span class="badge bg-secondary">
                                                 {{ $category->slug }}
                                             </span>
