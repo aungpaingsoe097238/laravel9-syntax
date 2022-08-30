@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -90,7 +91,27 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $post->title = $request->title;
+        $post->slug = Str::slug($request->title);
+        $post->description = $request->description;
+        $post->excerpt = Str::words(50,$request->description,' .....');
+        $post->category_id = $request->category;
+        $post->user_id = Auth::id();
+
+        if($request->hasFile('featured_image')){
+            // Delete Old File
+            Storage::delete('public/'.$post->feature_image);
+            // Update New File
+            $newName = uniqid().'_featured_image.'.$request->file('featured_image')->extension();
+            $request->file('featured_image')->storeAs('public',$newName);
+            $post->featured_image = $newName;
+        }
+
+        $post->save();
+
+        return redirect()->route('post.index');
+
+        return $request;
     }
 
     /**

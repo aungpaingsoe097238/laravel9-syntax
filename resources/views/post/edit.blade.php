@@ -14,6 +14,7 @@
 
             <form action="{{ route('post.update',$post->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('put')
                 <div class="row">
 
                     <div class="col-12">
@@ -68,6 +69,12 @@
 
                 </div>
             </form>
+
+            <div class="mt-3">
+                @isset($post->featured_image)
+                    <img class="w-100 " src={{ asset('storage/'.$post->featured_image) }} alt="">
+                @endisset
+            </div>
 
         </div>
     </div>
