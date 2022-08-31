@@ -58,7 +58,7 @@
                                             {{ $user->email }}
                                         </td>
                                         <td>
-
+                                            {{ $user->role }}
                                         </td>
                                         <td>
                                             {{ $user->created_at->format('d M Y') }}
@@ -74,6 +74,8 @@
 
                             </tbody>
                         </table>
+
+                        {{ $users->onEachSide(1)->links() }}
                     </div>
                 </div>
             </div>

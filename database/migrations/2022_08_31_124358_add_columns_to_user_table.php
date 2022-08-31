@@ -17,7 +17,7 @@ return new class extends Migration
         //php artisan make:migration add_columns_to_user_table --table=users ( table columns ထက်ထည့်တဲ့ php artisan commend ပါ။ )
 
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('role',['admin','editor','author'])->default('author');
+            $table->enum('role',['admin','editor','author'])->default('author')->after('name');
         });
     }
 
