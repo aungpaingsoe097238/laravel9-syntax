@@ -40,9 +40,11 @@
                                 <th>
                                     Category
                                 </th>
+                                @if(Auth::user()->role !== 'author')
                                 <th>
                                     Owner
                                 </th>
+                                @endif
                                 <th>
                                     Controls
                                 </th>
@@ -60,9 +62,11 @@
                                     <td>
                                         {{ \App\Models\Category::find($post->category_id)->title }}
                                     </td>
+                                    @if(Auth::user()->role !== 'author')
                                     <td>
                                         {{ \App\Models\User::find($post->user_id)->name }}
                                     </td>
+                                    @endif
                                     <td>
 
                                         <a href="{{ route('post.show',$post->id) }}" class="btn btn-secondary btn-sm d-inline-block">Info</a>
