@@ -65,7 +65,7 @@
                                     </td>
                                     <td>
 
-                                        <a href="{{ route('post.show',$post->id) }}" class="btn btn-secondary btn-sm">Info</a>
+                                        <a href="{{ route('post.show',$post->id) }}" class="btn btn-secondary btn-sm d-inline-block">Info</a>
 
                                         @can('update',$post)
                                         <a href="{{ route('post.edit',$post->id) }}" class="btn btn-secondary btn-sm">Edit</a>

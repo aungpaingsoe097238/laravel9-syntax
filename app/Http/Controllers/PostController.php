@@ -24,6 +24,7 @@ class PostController extends Controller
             $query->where('title', "LIKE", "%$keyword%")
                 ->orWhere('description', "LIKE", "%$keyword%");
         })
+            ->when(Auth::user()->role === 'author',fn($q)=>$q->where('user_id',Auth::user()->id))
             ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
@@ -104,9 +105,11 @@ class PostController extends Controller
 //            return abort(403,"Not Allow");
 //        }
 
-        if(Gate::denies('update',$post)){
-            return abort(403);
-        }
+//        if(Gate::denies('update',$post)){
+//            return abort(403);
+//        }
+
+        Gate::authorize('update',$post);
 
 
         $post->title = $request->title;
@@ -140,9 +143,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
 
-        if(Gate::denies('delete',$post)){
-            return abort(403);
-        }
+        Gate::authorize('delete',$post);
 
         if(isset($post->featured_image)){
             Storage::delete('public/'.$post->featured_image);

@@ -22,8 +22,7 @@ class CategoryController extends Controller
 
         $categories = Category::latest('id')
             ->when(Auth::user()->role === 'author' , fn ($q)=>
-                $q->where( 'user_id',Auth::id() )
-            )
+                $q->where( 'user_id',Auth::id() ))
             ->get();
 
         return view('category.index',compact('categories'));
@@ -75,6 +74,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        Gate::authorize('update',$category);
         return view('category.edit',compact('category'));
     }
 
@@ -87,9 +87,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        if(Gate::denies('update',$category)){
-            return abort(403);
-        }
+        Gate::authorize('update',$category);
 
         $category->title = $request->title;
         $category->slug  = Str::slug($request->title);
@@ -107,9 +105,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        if(Gate::denies('delete',$category)){
-            return abort(403);
-        }
+        Gate::authorize('delete',$category);
 
         $category->delete();
         return redirect()->route('category.index');
