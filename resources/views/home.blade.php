@@ -10,7 +10,11 @@
 
     <div class="card">
         <div class="card-body">
-
+{{--            @myname('aps')--}}
+{{--            <br>--}}
+{{--            @abc(false)--}}
+{{--                show or not show--}}
+{{--            @endabc--}}
         </div>
     </div>
 

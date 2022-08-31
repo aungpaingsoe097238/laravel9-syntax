@@ -40,11 +40,13 @@
                                 <th>
                                     Category
                                 </th>
-                                @if(Auth::user()->role !== 'author')
+{{--                                @if(Auth::user()->role !== 'author')--}}
+                                @notAuthor
                                 <th>
                                     Owner
                                 </th>
-                                @endif
+                                @endnotAuthor
+{{--                                @endif--}}
                                 <th>
                                     Controls
                                 </th>
@@ -62,11 +64,15 @@
                                     <td>
                                         {{ \App\Models\Category::find($post->category_id)->title }}
                                     </td>
-                                    @if(Auth::user()->role !== 'author')
+
+{{--                                    @if(Auth::user()->role !== 'author')--}}
+                                    @notAuthor
                                     <td>
                                         {{ \App\Models\User::find($post->user_id)->name }}
                                     </td>
-                                    @endif
+                                    @endnotAuthor
+
+{{--                                    @endif--}}
                                     <td>
 
                                         <a href="{{ route('post.show',$post->id) }}" class="btn btn-secondary btn-sm d-inline-block">Info</a>

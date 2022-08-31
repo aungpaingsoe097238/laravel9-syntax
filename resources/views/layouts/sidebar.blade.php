@@ -21,12 +21,16 @@
 
 <div class="py-3"></div>
 
-@if(Auth::user()->role === 'admin')
+{{--@if(Auth::user()->role === 'admin')--}}
+
+@admin
 <p class="small text-black-50 mb-1">Manage User</p>
 <div class="list-group">
     <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action">User Index</a>
 </div>
-@endif
+@endadmin
+
+{{--@endif--}}
 
 
 
