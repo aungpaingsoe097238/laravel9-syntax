@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Auth\GuardHelpers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,11 @@ class CategoryController extends Controller
     public function index()
     {
 
-        $categories = Category::latest()->get();
+        $categories = Category::latest('id')
+            ->when(Auth::user()->role === 'author' , fn ($q)=>
+                $q->where( 'user_id',Auth::id() )
+            )
+            ->get();
 
         return view('category.index',compact('categories'));
     }

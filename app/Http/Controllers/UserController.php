@@ -20,7 +20,7 @@ class UserController extends Controller
             $query->where('name', "LIKE", "%$keyword%")
                 ->orWhere('email', "LIKE", "%$keyword%");
         })
-            ->latest()
+            ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
 

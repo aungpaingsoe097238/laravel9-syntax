@@ -12,7 +12,9 @@ class CategoryPolicy
 
     public function before(User $user)
     {
-        return $user->role === 'admin' || $user->role === 'editor';
+        if($user->role === 'admin' || $user->role === 'editor'){
+            return true;
+        }
     }
 
     /**

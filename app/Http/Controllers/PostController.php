@@ -24,7 +24,7 @@ class PostController extends Controller
             $query->where('title', "LIKE", "%$keyword%")
                 ->orWhere('description', "LIKE", "%$keyword%");
         })
-            ->latest()
+            ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
 
