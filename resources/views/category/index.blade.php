@@ -40,13 +40,19 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="{{ route('category.edit',$category->id) }}" class="btn btn-secondary btn-sm">Edit</a>
 
+                                            @can('update',$category)
+                                            <a href="{{ route('category.edit',$category->id) }}" class="btn btn-secondary btn-sm">Edit</a>
+                                            @endcan
+
+                                            @can('delete',$category)
                                             <form action="{{ route('category.destroy',$category->id) }}" class="d-inline-block" method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
                                             </form>
+                                            @endcan
+
                                         </td>
                                         <td>
                                             {{ $category->created_at->format('d M Y') }}

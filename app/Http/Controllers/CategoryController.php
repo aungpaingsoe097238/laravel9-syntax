@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Auth\GuardHelpers;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -81,6 +82,10 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
+        if(Gate::denies('update',$category)){
+            return abort(403);
+        }
+
         $category->title = $request->title;
         $category->slug  = Str::slug($request->title);
         $category->user_id = Auth()->id();
@@ -97,6 +102,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if(Gate::denies('delete',$category)){
+            return abort(403);
+        }
+
         $category->delete();
         return redirect()->route('category.index');
     }
