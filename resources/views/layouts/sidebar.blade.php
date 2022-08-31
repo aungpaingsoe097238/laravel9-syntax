@@ -19,6 +19,12 @@
     <a href="{{ route('category.create') }}" class="list-group-item list-group-item-action">Create Category</a>
 </div>
 
+<div class="py-3"></div>
+
+<p class="small text-black-50 mb-1">Manage User</p>
+<div class="list-group">
+    <a href="{{ route('user.index') }}" class="list-group-item list-group-item-action">User Index</a>
+</div>
 
 
 
