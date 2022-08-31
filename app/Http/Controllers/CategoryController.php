@@ -21,7 +21,7 @@ class CategoryController extends Controller
     {
 
         $categories = Category::latest('id')
-            ->when(Auth::user()->role === 'author' , fn ($q)=>
+            ->when(Auth::user()->isAuthor() , fn ($q)=>
                 $q->where( 'user_id',Auth::id() ))
             ->get();
 

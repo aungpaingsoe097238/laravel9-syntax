@@ -24,7 +24,7 @@ class PostController extends Controller
             $query->where('title', "LIKE", "%$keyword%")
                 ->orWhere('description', "LIKE", "%$keyword%");
         })
-            ->when(Auth::user()->role === 'author',fn($q)=>$q->where('user_id',Auth::user()->id))
+            ->when(Auth::user()->isAuthor(),fn($q)=>$q->where('user_id',Auth::user()->id))
             ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။

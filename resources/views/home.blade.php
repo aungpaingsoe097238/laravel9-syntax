@@ -15,6 +15,7 @@
 {{--            @abc(false)--}}
 {{--                show or not show--}}
 {{--            @endabc--}}
+{{--            {{ Auth::user()->isAuthor() }}--}}
         </div>
     </div>
 
