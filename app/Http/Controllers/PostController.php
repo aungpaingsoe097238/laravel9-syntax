@@ -145,17 +145,20 @@ class PostController extends Controller
 
         $post->save();
 
-        foreach ($request->photos as $photo){
+        if($request->photos){
+            foreach ($request->photos as $photo){
 
-            $newName = uniqid().'_photo.'.$photo->extension();
-            $photo->storeAs('public',$newName);
+                $newName = uniqid().'_photo.'.$photo->extension();
+                $photo->storeAs('public',$newName);
 
-            $photos = new Photo();
-            $photos->post_id = $post->id;
-            $photos->name = $newName;
-            $photos->save();
+                $photos = new Photo();
+                $photos->post_id = $post->id;
+                $photos->name = $newName;
+                $photos->save();
 
+            }
         }
+
 
         return redirect()->route('post.index');
 

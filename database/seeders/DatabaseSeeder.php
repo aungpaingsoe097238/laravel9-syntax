@@ -10,6 +10,7 @@ use App\Models\User;
 use Database\Factories\CategoryFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,12 @@ class DatabaseSeeder extends Seeder
            CategorySeeder::class,
            PostSeeder::class
         ]);
+
+        $photos = Storage::allFiles('public');
+        array_shift($photos);
+        Storage::delete($photos);
+
+        echo 'Storage Cleaned';
 
     }
 }
