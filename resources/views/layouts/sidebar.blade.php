@@ -32,5 +32,10 @@
 
 {{--@endif--}}
 
+<p class="small text-black-50 mb-1">Manage Photo</p>
+<div class="list-group">
+    <a href="{{ route('photo.index') }}" class="list-group-item list-group-item-action">Photo Index</a>
+</div>
+
 
 

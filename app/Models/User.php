@@ -54,4 +54,9 @@ class User extends Authenticatable
     public function isAdmin(){
         return Auth::user()->role === 'admin';
     }
+
+    public function photos(){
+        return $this->hasManyThrough(Photo::class,Post::class);
+    }
+
 }
