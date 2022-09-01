@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
+use App\Models\Nation;
 use App\Models\Post;
 use App\Models\User;
 use Database\Factories\CategoryFactory;
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
+           NationSeeder::class,
            UserSeeder::class,
            CategorySeeder::class,
            PostSeeder::class
