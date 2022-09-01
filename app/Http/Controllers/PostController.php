@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Photo;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
@@ -66,6 +67,19 @@ class PostController extends Controller
         }
 
         $post->save();
+
+        foreach ($request->photos as $photo){
+
+            $newName = uniqid().'_photo.'.$photo->extension();
+            $photo->storeAs('public',$newName);
+
+            $photos = new Photo();
+            $photos->post_id = $post->id;
+            $photos->name = $newName;
+            $photos->save();
+
+        }
+
 
         return redirect()->route('post.index');
     }
