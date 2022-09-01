@@ -21,6 +21,14 @@
                                     <th>
                                         Title
                                     </th>
+                                    @notAuthor
+                                    <th>
+                                        Owner
+                                    </th>
+                                    @endnotAuthor
+                                    <th>
+                                        Post Count
+                                    </th>
                                     <th>
                                         Controls
                                     </th>
@@ -38,6 +46,14 @@
                                             <span class="badge bg-secondary">
                                                 {{ $category->slug }}
                                             </span>
+                                        </td>
+                                        @notAuthor
+                                        <td>
+                                             {{ $category->user->name }}
+                                        </td>
+                                        @endnotAuthor
+                                        <td>
+                                            {{$category->posts()->count()}}
                                         </td>
                                         <td>
 
