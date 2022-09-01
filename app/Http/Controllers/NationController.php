@@ -47,7 +47,7 @@ class NationController extends Controller
      */
     public function show(Nation $nation)
     {
-        //
+        return $nation->categories;
     }
 
     /**
