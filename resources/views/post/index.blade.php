@@ -62,13 +62,13 @@
                                         {{ $post->title }}
                                     </td>
                                     <td>
-                                        {{ \App\Models\Category::find($post->category_id)->title }}
+                                        {{ $post->category->title }}
                                     </td>
 
 {{--                                    @if(Auth::user()->role !== 'author')--}}
                                     @notAuthor
                                     <td>
-                                        {{ \App\Models\User::find($post->user_id)->name }}
+                                        {{ $post->user->name }}
                                     </td>
                                     @endnotAuthor
 

@@ -28,7 +28,7 @@ class PostFactory extends Factory
             'slug'  => Str::slug($title),
             'description' => $description,
             'excerpt' => Str::words($description,50,'...'),
-            'category_id' => Category::all()->random()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'user_id' => User::inRandomOrder()->first()->id
         ];
     }
