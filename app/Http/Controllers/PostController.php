@@ -92,7 +92,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return $post->user;
+//        return $post->user;
         return view('post.show',compact('post'));
     }
 
@@ -145,6 +145,18 @@ class PostController extends Controller
 
         $post->save();
 
+        foreach ($request->photos as $photo){
+
+            $newName = uniqid().'_photo.'.$photo->extension();
+            $photo->storeAs('public',$newName);
+
+            $photos = new Photo();
+            $photos->post_id = $post->id;
+            $photos->name = $newName;
+            $photos->save();
+
+        }
+
         return redirect()->route('post.index');
 
     }
@@ -163,6 +175,12 @@ class PostController extends Controller
         if(isset($post->featured_image)){
             Storage::delete('public/'.$post->featured_image);
         }
+
+        foreach ($post->photos as $photo){
+            Storage::delete('public/'.$photo->name);
+            $photo->delete();
+        }
+
         $post->delete();
 
         return redirect()->route('post.index');

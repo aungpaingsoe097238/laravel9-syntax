@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 use App\Http\Requests\StorePhotoRequest;
 use App\Http\Requests\UpdatePhotoRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PhotoController extends Controller
 {
@@ -81,6 +82,11 @@ class PhotoController extends Controller
      */
     public function destroy(Photo $photo)
     {
-        //
+        Storage::delete('storage/'.$photo->name);
+
+        $photo->delete();
+
+        return redirect()->route('post.index');
+
     }
 }

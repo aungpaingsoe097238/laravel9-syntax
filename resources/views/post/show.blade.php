@@ -17,26 +17,32 @@
             <hr>
 
             <div>
-                <span class="badge bg-secondary">{{ \App\Models\Category::find($post->category_id)->title }}</span>
+                <span class="badge bg-secondary">{{ $post->category->title }}</span>
             </div>
 
             <div>
-                <span class="badge bg-secondary">{{ \App\Models\User::find($post->user_id)->name }}</span>
+                <span class="badge bg-secondary">{{ $post->user->name }}</span>
             </div>
 
-            <div class="mt-2">
+            <div>
+                @isset($post->featured_image)
+                    <img class="rounded mt-2" height="200" src={{ asset('storage/'.$post->featured_image) }} alt="">
+                @endisset
+            </div>
+
+            <div class="">
                 <p>
                     {{ $post->description }}
                 </p>
             </div>
 
             <div>
-                @isset($post->featured_image)
-                    <img class="w-100 mt-2" src={{ asset('storage/'.$post->featured_image) }} alt="">
-                @endisset
+                @foreach($post->photos as $photo)
+                    <img class="rounded mt-2" height="100" src={{ asset('storage/'.$photo->name) }} alt="">
+                @endforeach
             </div>
 
-            <div>
+            <div class="mt-2">
                 <a class="btn btn-primary" href={{ route('post.create') }} >Create Post</a>
                 <a class="btn btn-primary" href={{ route('post.edit',$post->id) }} >Edit Post</a>
             </div>
