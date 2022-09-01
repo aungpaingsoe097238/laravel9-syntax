@@ -15,10 +15,19 @@
                         @endif
                     </div>
                     <form action="{{ route('page.index') }}" method="get" class="d-flex">
-                        <input type="search" name="keyword" value="{{ request('keyword') }}" class="form-control d-inline-block">
+                        <input type="text" name="keyword"  class="form-control d-inline-block">
                         <button class="btn btn-secondary">Search</button>
                     </form>
+
                 </div>
+
+                @isset($category)
+                <div>
+                    <p>
+                        Filter By Category - {{ $category->title }}
+                    </p>
+                </div>
+                @endisset
 
 
             @forelse($posts as $post)
@@ -27,7 +36,7 @@
 
                             <div>
                                 <h5>{{ $post->title }}</h5>
-                                <a href="">
+                                <a href="{{ route('page.category',$post->category->slug) }}">
                                     <span class="badge bg-secondary">
                                         {{ $post->category->title }}
                                     </span>
@@ -65,6 +74,8 @@
                         </div>
                     </div>
                 @endforelse
+
+                {{ $posts->onEachSide(1)->links() }}
 
             </div>
         </div>
