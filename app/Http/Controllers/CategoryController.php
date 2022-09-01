@@ -63,7 +63,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return abort(404);
+        return $category->post;
+//        return abort(404);
     }
 
     /**

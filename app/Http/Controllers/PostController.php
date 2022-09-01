@@ -78,6 +78,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        return $post->user;
         return view('post.show',compact('post'));
     }
 

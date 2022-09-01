@@ -9,7 +9,17 @@ class Category extends Model
 {
     use HasFactory;
 
-    public static function inRandomOrder()
-    {
+
+    public function post(){
+        return $this->hasOne(Post::class)->ofMany('user_id','max');
     }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
 }

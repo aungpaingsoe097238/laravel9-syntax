@@ -27,7 +27,7 @@ Route::get('/home', [HomeController::class, 'index'])->middleware('testing')->na
 Route::get('/test',[HomeController::class,'test'])->middleware('testing')->name('test');
 
 Route::middleware('auth')->group(function (){
-    Route::resource('category',CategoryController::class)->except('show');
+    Route::resource('category',CategoryController::class);
     Route::resource('post',PostController::class);
     Route::resource('user',UserController::class);
 });
