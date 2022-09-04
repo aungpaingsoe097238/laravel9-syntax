@@ -9,8 +9,15 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
+    public $recentPosts;
+
+    public function __construct()
+    {
+        $this->recentPosts = Post::limit(5)->with('category','user')->get();
+    }
 
     public function index(){
+
         $posts = Post::when(isset(request()->keyword),function ($query) {
             $keyword = request()->keyword;
             $query->where('title', "LIKE", "%$keyword%")
@@ -21,7 +28,7 @@ class PageController extends Controller
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
 
-        $recentPosts = Post::limit(5)->with('category','user')->get();
+        $recentPosts = $this->recentPosts;
 
         return view('index',compact('posts','recentPosts'));
     }
@@ -30,7 +37,7 @@ class PageController extends Controller
 
         $post = Post::where('slug',$slug)->with('category','user')->first();
 
-        $recentPosts = Post::limit(5)->with('category','user')->get();
+        $recentPosts = $this->recentPosts;
 
         return view('detail',compact('post','recentPosts'));
     }
@@ -54,7 +61,7 @@ class PageController extends Controller
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
 
-        $recentPosts = Post::limit(5)->with('category','user')->get();
+        $recentPosts = $this->recentPosts;
 
         return view('index',compact('posts','category','recentPosts'));
 
