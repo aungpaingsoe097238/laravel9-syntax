@@ -28,6 +28,7 @@ Route::middleware('auth')->prefix('dashboard')->group(function (){
     Route::resource('photo',PhotoController::class);
 });
 
+// Send Mail
 Route::get('/sendmail',function (){
     $title = 'Aung Paing Soe';
     $description = 'Loram Maintenance of Way, Inc. is a railroad maintenance equipment and services provider. Loram provides track maintenance services to freight, passenger, and transit railroads worldwide, as well as sells and leases equipment which performs these';
@@ -35,16 +36,24 @@ Route::get('/sendmail',function (){
 
     // php artisan make:mail TestMail //
 
-    $mail = [
+    $mails = [
         'aps@gmail.com',
-//        'pp@gmail.com',
-//        'hello@gmail.com',
-//        'alpha@gmail.com',
-//        'helloWorld@gmail.com'
+        'pp@gmail.com',
+        'hello@gmail.com',
+        'alpha@gmail.com',
+        'helloWorld@gmail.com'
     ];
 
-    Mail::to($mail)->send(new TestMail($title,$description));
+    // php artisan queue:table
+    // php artisan migrate
+    // QUEUE_CONNECTION=database
+    // php artisan queue:work
+
+    foreach ($mails as $mail){
+        Mail::to($mail)->later(now()->addMinute(1),new TestMail($title,$description));
+    }
 
 });
+
 
 
