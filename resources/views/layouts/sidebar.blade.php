@@ -9,6 +9,7 @@
 <div class="list-group">
     <a href="{{ route('post.index') }}" class="list-group-item list-group-item-action">Post Index</a>
     <a href="{{ route('post.create') }}" class="list-group-item list-group-item-action">Create Post</a>
+    <a href="{{ route('post.index',['trash'=>true]) }}" class="list-group-item list-group-item-action">Trashed Post</a>
 </div>
 
 <div class="py-3"></div>

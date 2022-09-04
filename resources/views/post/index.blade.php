@@ -81,11 +81,27 @@
                                         @endcan
 
                                         @can('delete',$post)
-                                        <form action="{{ route('post.destroy',$post->id) }}" class="d-inline-block" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
-                                        </form>
+
+                                            @trash
+                                            <form action="{{ route('post.destroy',[$post->id,"delete"=>"force"]) }}" class="d-inline-block" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                            <form action="{{ route('post.destroy',[$post->id,"delete"=>"restore"]) }}" class="d-inline-block" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-danger btn-sm">Recycle</button>
+                                            </form>
+                                            @else
+
+                                            <form action="{{ route('post.destroy',[$post->id,"delete"=>"soft"]) }}" class="d-inline-block" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn btn-secondary btn-sm">Delete</button>
+                                            </form>
+                                            @endtrash
+
                                         @endcan
 
                                     </td>

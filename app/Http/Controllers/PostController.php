@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function Spatie\Ignition\renderError;
 
 class PostController extends Controller
 {
@@ -26,6 +27,7 @@ class PostController extends Controller
                 ->orWhere('description', "LIKE", "%$keyword%");
         })
             ->when(Auth::user()->isAuthor(),fn($q)=>$q->where('user_id',Auth::user()->id))
+            ->when(request()->trash,fn($q)=>$q->onlyTrashed())
             ->with(['category','user'])
             ->latest('id')
             ->paginate(10)
@@ -173,8 +175,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+
+        $post = Post::withTrashed()->findOrFail($id)->first();
 
         Gate::authorize('delete',$post);
 
@@ -187,7 +191,15 @@ class PostController extends Controller
             $photo->delete();
         }
 
-        $post->delete();
+        if (request()->delete === 'force'):
+            $post->forceDelete();
+            return redirect()->route('post.index',['trash'=>true]);
+        elseif (request()->delete === 'restore'):
+            $post->restore();
+            return redirect()->route('post.index',['trash'=>true]);
+        else:
+            $post->delete();
+        endif;
 
         return redirect()->route('post.index');
     }

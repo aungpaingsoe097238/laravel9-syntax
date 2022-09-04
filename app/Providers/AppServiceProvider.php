@@ -61,5 +61,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('notAuthor',function (){
             return Auth::user()->role != 'author';
         });
+
+        Blade::if('trash',function (){
+            return request()->trash;
+        });
     }
 }
