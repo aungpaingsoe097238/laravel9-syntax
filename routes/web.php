@@ -37,10 +37,10 @@ Route::get('/sendmail',function (){
 
     $mail = [
         'aps@gmail.com',
-        'pp@gmail.com',
-        'hello@gmail.com',
-        'alpha@gmail.com',
-        'helloWorld@gmail.com'
+//        'pp@gmail.com',
+//        'hello@gmail.com',
+//        'alpha@gmail.com',
+//        'helloWorld@gmail.com'
     ];
 
     Mail::to($mail)->send(new TestMail($title,$description));

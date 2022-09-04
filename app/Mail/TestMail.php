@@ -31,6 +31,9 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.test');
+        return $this
+        ->from('aps@gmail.com','Aung Paing Soe')
+        ->subject('စန်းကြည့်တာပါ။')
+        ->view('mail.test');
     }
 }
