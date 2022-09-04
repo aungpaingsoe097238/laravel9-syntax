@@ -8,6 +8,8 @@ use App\Http\Controllers\UserController;
 use \App\Http\Controllers\NationController;
 use \App\Http\Controllers\PhotoController;
 use App\Http\Controllers\PageController;
+use \Illuminate\Support\Facades\Mail;
+use \App\Mail\TestMail;
 
 Route::get('/',[PageController::class,'index'])->name('page.index');
 Route::get('/detail/{slug}',[PageController::class,'detail'])->name('page.detail');
@@ -26,5 +28,22 @@ Route::middleware('auth')->prefix('dashboard')->group(function (){
     Route::resource('photo',PhotoController::class);
 });
 
+Route::get('/sendmail',function (){
+    $title = 'Aung Paing Soe';
+    $description = 'Loram Maintenance of Way, Inc. is a railroad maintenance equipment and services provider. Loram provides track maintenance services to freight, passenger, and transit railroads worldwide, as well as sells and leases equipment which performs these';
+
+
+    // php artisan make:mail TestMail //
+
+    $mail = [
+        'aps@gmail.com',
+        'pp@gmail.com',
+        'hello@gmail.com',
+        'alpha@gmail.com'
+    ];
+
+    Mail::to($mail)->send(new TestMail($title,$description));
+
+});
 
 
