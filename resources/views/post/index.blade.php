@@ -9,8 +9,8 @@
         </ol>
     </nav>
 
-    <div class="card">
-        <div class="card-body">
+    <x-card>
+        <x-slot:title>Post Lists</x-slot:title>
 
             <div class="d-flex justify-content-between mb-2">
                 <div>
@@ -25,7 +25,6 @@
                         <button class="btn btn-outline-secondary">Search</button>
                     </div>
                 </form>
-
             </div>
 
             <div class="container">
@@ -104,12 +103,13 @@
 
                             </tbody>
                         </table>
+                        {{ $posts->onEachSide(1)->links() }}
+
                     </div>
                 </div>
             </div>
 
-        </div>
-        {{ $posts->onEachSide(1)->links() }}
-    </div>
+
+    </x-card>
 
 @endsection

@@ -1,14 +1,4 @@
 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
-        </a>
-        <ul class="dropdown-menu">
-            @foreach(\App\Models\Category::all() as $category)
-                <li><a class="dropdown-item" href="{{ route('page.category',$category->slug) }}">{{ $category->title }}</a></li>
-            @endforeach
-        </ul>
-    </li>
     @auth()
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -16,7 +6,7 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="{{ route('page.index') }}" class="dropdown-item {{ request()->url() === route('page.index') ? 'active' : '' }} ">Home</a>
+                    <x-nav-link url="{{ route('page.index') }}" name="HOME"></x-nav-link>
                 </li>
                 <li class="dropdown-divider">
                 </li>
@@ -35,10 +25,10 @@
         </li>
     @else
         <li class="nav-item">
-            <a class="nav-link {{ request()->url() === route('login') ? 'active' : '' }} " href="{{ route('login') }}">Login</a>
+            <x-nav-link url="{{ route('login') }}" name="Login"></x-nav-link>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->url() === route('register') ? 'active' : '' }} " href="{{ route('register') }}">Register</a>
+            <x-nav-link url="{{ route('register') }}" name="Register"></x-nav-link>
         </li>
     @endauth
 </ul>

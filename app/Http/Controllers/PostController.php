@@ -41,7 +41,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        $links = ['Post'=>route('post.index'),'Post Create'=>route('post.create')];
+
+        return view('post.create',compact('links'));
     }
 
     /**
