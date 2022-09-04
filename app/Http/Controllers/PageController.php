@@ -28,7 +28,9 @@ class PageController extends Controller
 
         $post = Post::where('slug',$slug)->with('category','user')->first();
 
-        return view('detail',compact('post'));
+        $recentPosts = Post::limit(5)->with('category','user')->get();
+
+        return view('detail',compact('post','recentPosts'));
     }
 
     public function postByCategory($slug){
@@ -50,7 +52,9 @@ class PageController extends Controller
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
 
-        return view('index',compact('posts','category'));
+        $recentPosts = Post::limit(5)->with('category','user')->get();
+
+        return view('index',compact('posts','category','recentPosts'));
 
     }
 

@@ -1,25 +1,19 @@
-@extends('master')
+@extends('templates.master')
 
 @section('content')
 
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
 
-                <h4>Blog Posts</h4>
+            <div class="col-12 col-lg-6">
 
-                <div class="d-flex justify-content-between align-items-center">
+                @if(request('keyword'))
                     <div>
-                        @if(request('keyword'))
+                        <p>
                             Search - {{ request('keyword') }}
-                        @endif
+                        </p>
                     </div>
-                    <form action="{{ route('page.index') }}" method="get" class="d-flex">
-                        <input type="text" name="keyword"  class="form-control d-inline-block">
-                        <button class="btn btn-secondary">Search</button>
-                    </form>
-
-                </div>
+                @endif
 
                 @isset($category)
                 <div>
@@ -31,7 +25,7 @@
 
 
             @forelse($posts as $post)
-                    <div class="card my-2">
+                    <div class="card ">
                         <div class="card-body">
 
                             <div>
@@ -77,6 +71,10 @@
 
                 {{ $posts->onEachSide(1)->links() }}
 
+            </div>
+
+            <div class="col-12 col-lg-4">
+                @include('templates.sidebar')
             </div>
         </div>
     </div>
