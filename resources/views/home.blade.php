@@ -16,6 +16,7 @@
 {{--                show or not show--}}
 {{--            @endabc--}}
 {{--            {{ Auth::user()->isAuthor() }}--}}
+            {{ $categories }}
         </div>
     </div>
 

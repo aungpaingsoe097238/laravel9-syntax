@@ -27,7 +27,7 @@
                     <div class="col-12">
                         <label for="category">Category</label>
                         <select class="form-select @error('category') is-invalid @enderror" id="category" name="category">
-                            @foreach(\App\Models\Category::all() as $category)
+                            @foreach($categories as $category)
                                 <option
                                     value="{{ $category->id }}"
                                     {{ $category->id == old('category') ? 'selected' : '' }} >

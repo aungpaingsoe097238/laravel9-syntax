@@ -21,7 +21,9 @@ class PageController extends Controller
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
 
-        return view('index',compact('posts'));
+        $recentPosts = Post::limit(5)->with('category','user')->get();
+
+        return view('index',compact('posts','recentPosts'));
     }
 
     public function detail($slug){

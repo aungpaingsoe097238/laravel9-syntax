@@ -7,7 +7,7 @@
 </div>
 <div>
     <div class="list-group my-3">
-        @foreach(\App\Models\Category::all() as $category)
+        @foreach($categories as $category)
             <a href="{{ route('page.category',$category->slug) }}" class="list-group-item nav-link {{ request()->url() === route('page.category',$category->slug) ? 'active' : '' }}">{{ $category->title }}</a>
         @endforeach
     </div>
