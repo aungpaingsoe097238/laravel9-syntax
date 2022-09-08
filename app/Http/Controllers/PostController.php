@@ -56,7 +56,6 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-
         $post = new Post();
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
@@ -73,18 +72,22 @@ class PostController extends Controller
 
         $post->save();
 
-        foreach ($request->photos as $photo){
-
+        $savePhotos = [];
+        foreach ($request->photos as $key=>$photo){
             $newName = uniqid().'_photo.'.$photo->extension();
             $photo->storeAs('public',$newName);
-
-            $photos = new Photo();
-            $photos->post_id = $post->id;
-            $photos->name = $newName;
-            $photos->save();
-
+            $savePhotos[$key] = [
+                'post_id' => $post->id,
+                'name'    => $newName
+            ];
         }
 
+          Photo::insert($savePhotos);
+
+//        $photos = new Photo();
+//        $photos->post_id = $post->id;
+//        $photos->name = $newName;
+//        $photos->save();
 
         return redirect()->route('post.index');
     }
@@ -150,20 +153,24 @@ class PostController extends Controller
 
         $post->save();
 
+        $savePhotos = [];
         if($request->photos){
-            foreach ($request->photos as $photo){
-
+            foreach ($request->photos as $key=>$photo){
                 $newName = uniqid().'_photo.'.$photo->extension();
                 $photo->storeAs('public',$newName);
-
-                $photos = new Photo();
-                $photos->post_id = $post->id;
-                $photos->name = $newName;
-                $photos->save();
-
-            }
+                $savePhotos[$key] = [
+                    'post_id' => $post->id,
+                    'name'    => $newName
+                ];
+             }
         }
 
+        Photo::insert($savePhotos);
+
+//        $photos = new Photo();
+//        $photos->post_id = $post->id;
+//        $photos->name = $newName;
+//        $photos->save();
 
         return redirect()->route('post.index');
 
@@ -177,9 +184,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-
         $post = Post::withTrashed()->findOrFail($id)->first();
-
         Gate::authorize('delete',$post);
 
         if(isset($post->featured_image)){
