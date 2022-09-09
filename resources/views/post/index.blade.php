@@ -34,6 +34,9 @@
                             <thead>
                             <tr>
                                 <th>
+                                    #
+                                </th>
+                                <th>
                                     Title
                                 </th>
                                 <th>
@@ -57,6 +60,9 @@
                             <tbody>
                             @forelse($posts as $post)
                                 <tr>
+                                    <td>
+                                        {{ $post->id }}
+                                    </td>
                                     <td class="w-25">
                                         {{ $post->title }}
                                     </td>
@@ -70,7 +76,6 @@
                                         {{ $post->user->name }}
                                     </td>
                                     @endnotAuthor
-
 {{--                                    @endif--}}
                                     <td>
 

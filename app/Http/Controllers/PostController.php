@@ -82,7 +82,7 @@ class PostController extends Controller
             ];
         }
 
-          Photo::insert($savePhotos);
+        Photo::insert($savePhotos);
 
 //        $photos = new Photo();
 //        $photos->post_id = $post->id;
@@ -162,7 +162,7 @@ class PostController extends Controller
                     'post_id' => $post->id,
                     'name'    => $newName
                 ];
-             }
+            }
         }
 
         Photo::insert($savePhotos);
@@ -197,15 +197,13 @@ class PostController extends Controller
         }
 
         if (request()->delete === 'force'):
-            $post->forceDelete();
-            return redirect()->route('post.index',['trash'=>true]);
+            Post::withTrashed()->findOrFail($id)->forceDelete();
         elseif (request()->delete === 'restore'):
-            $post->restore();
-            return redirect()->route('post.index',['trash'=>true]);
+            Post::withTrashed()->findOrFail($id)->restore();
         else:
-            $post->delete();
+            Post::withTrashed()->findOrFail($id)->delete(); // Soft Delete
         endif;
 
-        return redirect()->route('post.index');
+        return redirect()->route('post.index',['trash'=>true]);
     }
 }
