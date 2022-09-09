@@ -17,6 +17,17 @@ class Post extends Model
         'photos'
     ];
 
+    // Accessor
+    public function getTitleAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    // Mutator
+    public function setTitleAttribute($value){
+        return $this->attributes['title'] = strtoupper($value);
+    }
+
     public function category(){
         return $this->belongsTo(Category::class);
     }
