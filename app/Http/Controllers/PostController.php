@@ -21,11 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::when(isset(request()->keyword),function ($query) {
-            $keyword = request()->keyword;
-            $query->where('title', "LIKE", "%$keyword%")
-                ->orWhere('description', "LIKE", "%$keyword%");
-        })
+        $posts = Post::search()
             ->when(Auth::user()->isAuthor(),fn($q)=>$q->where('user_id',Auth::user()->id))
             ->when(request()->trash,fn($q)=>$q->onlyTrashed())
             ->with(['category','user'])
@@ -185,19 +181,25 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::withTrashed()->findOrFail($id)->first();
+
         Gate::authorize('delete',$post);
 
         if(isset($post->featured_image)){
             Storage::delete('public/'.$post->featured_image);
         }
 
-        foreach ($post->photos as $photo){
-            Storage::delete('public/'.$photo->name);
-            $photo->delete();
-        }
-
         if (request()->delete === 'force'):
+            if(isset($post->photos)){
+//            foreach ($post->photos as $photo){
+//                Storage::delete('public/'.$photo->name);
+//                $photo->delete();
+//            }
+                Photo::where("post_id",$post->id)->delete();
+                Storage::delete($post->photos->map(fn($photo)=>'public/'.$photo->name)->toArray());
+            }
+
             Post::withTrashed()->findOrFail($id)->forceDelete();
+
         elseif (request()->delete === 'restore'):
             Post::withTrashed()->findOrFail($id)->restore();
         else:

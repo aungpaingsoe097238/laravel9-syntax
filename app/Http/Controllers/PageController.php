@@ -18,11 +18,7 @@ class PageController extends Controller
 
     public function index(){
 
-        $posts = Post::when(isset(request()->keyword),function ($query) {
-            $keyword = request()->keyword;
-            $query->where('title', "LIKE", "%$keyword%")
-                ->orWhere('description', "LIKE", "%$keyword%");
-        })
+        $posts = Post::search()
             ->with(['category','user'])
             ->latest('id')
             ->paginate(10)
