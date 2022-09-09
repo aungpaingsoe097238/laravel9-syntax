@@ -33,6 +33,10 @@ class Post extends Model
         return $this->attributes['title'] = strtoupper($value);
     }
 
+//    protected $casts = [
+//        'category_id' => 'boolean',
+//    ];
+
     public function category(){
         return $this->belongsTo(Category::class);
     }
