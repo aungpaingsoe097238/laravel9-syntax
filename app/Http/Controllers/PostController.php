@@ -24,7 +24,6 @@ class PostController extends Controller
         $posts = Post::search()
             ->when(Auth::user()->isAuthor(),fn($q)=>$q->where('user_id',Auth::user()->id))
             ->when(request()->trash,fn($q)=>$q->onlyTrashed())
-            ->with(['category','user'])
             ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။

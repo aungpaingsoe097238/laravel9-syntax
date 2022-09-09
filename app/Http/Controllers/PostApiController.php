@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class PostApiController extends Controller
 {
     public function posts(){
-        $posts = Post::when(isset(request()->keyword),function ($query) {
-            $keyword = request()->keyword;
-            $query->where('title', "LIKE", "%$keyword%")
-                ->orWhere('description', "LIKE", "%$keyword%");
-        })
-            ->with(['category','user'])
+        $posts = Post::search()
             ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။

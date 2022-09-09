@@ -13,13 +13,12 @@ class PageController extends Controller
 
     public function __construct()
     {
-        $this->recentPosts = Post::limit(5)->with('category','user')->get();
+        $this->recentPosts = Post::limit(5)->get();
     }
 
     public function index(){
 
         $posts = Post::search()
-            ->with(['category','user'])
             ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
@@ -31,7 +30,7 @@ class PageController extends Controller
 
     public function detail($slug){
 
-        $post = Post::where('slug',$slug)->with('category','user')->first();
+        $post = Post::where('slug',$slug)->first();
 
         $recentPosts = $this->recentPosts;
 
@@ -52,7 +51,6 @@ class PageController extends Controller
             });
         })
             ->where('category_id',$category_id)
-            ->with(['user','category'])
             ->latest('id')
             ->paginate(10)
             ->withQueryString(); // paginate လုပ်ရင် search keyword ပါပြန်ခေါ်ပေး။
