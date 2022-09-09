@@ -23,6 +23,11 @@ class Post extends Model
         return ucfirst($value);
     }
 
+    public function getTimeAttribute()
+    {
+        return "{$this->created_at->format('d - m - Y')}";
+    }
+
     // Mutator
     public function setTitleAttribute($value){
         return $this->attributes['title'] = strtoupper($value);

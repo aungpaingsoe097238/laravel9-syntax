@@ -111,8 +111,10 @@
 
                                     </td>
                                     <td>
-                                        {{ $post->created_at->format('d M Y') }}
+{{--                                        {{ $post->created_at->format('d M Y') }}--}}
+                                        {!! $post->time !!}
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>
