@@ -100,8 +100,8 @@
 
     </div>
 
-
     @stack('script')
+
 
 </body>
 </html>

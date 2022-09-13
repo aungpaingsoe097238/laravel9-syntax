@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $category->user_id = Auth()->id();
         $category->save();
 
-        return redirect()->route('category.index')->with('status',$category.' is Created Successfully!.');
+        return redirect()->route('category.index')->with('status',$category->name.' is Created Successfully!.');
     }
 
     /**
